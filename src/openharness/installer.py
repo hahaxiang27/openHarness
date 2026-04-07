@@ -380,7 +380,7 @@ def uninstall() -> None:
     
     # 5. Ask whether to uninstall the Python package as well.
     print("")
-    print("[openHarness] Do you also want to remove the `hc` CLI package?")
+    print("[openHarness] Do you also want to remove the `oph` CLI package?")
     answer_pkg = input("        Uninstall openharness package? (Y/n): ").strip().lower()
     if answer_pkg != "n":
         print("[openHarness] Uninstalling openharness package...")
@@ -398,5 +398,5 @@ def uninstall() -> None:
             print("[openHarness] Please run manually:")
             print(f"        {sys.executable} -m pip uninstall openharness")
     else:
-        print("[openHarness] Package kept. `hc` command is still available.")
+        print("[openHarness] Package kept. `oph` command is still available.")
         print("[openHarness] To remove later: python -m pip uninstall openharness")

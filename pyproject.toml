@@ -22,7 +22,7 @@ dev = [
 ]
 
 [project.scripts]
-hc = "openharness.cli:main"
+oph = "openharness.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/hahaxiang27/openHarness"

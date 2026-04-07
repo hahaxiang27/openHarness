@@ -1,14 +1,14 @@
-﻿# openHarness SDD + Harness Architecture
+# openHarness SDD + Harness Architecture
 
 ## Overview
 
 openHarness now uses a single minimal workflow:
 
 1. SDD side
-   - `hc prd`, `hc spec`, and `hc gen` generate change-based requirement artifacts.
+   - `oph prd`, `oph spec`, and `oph gen` generate change-based requirement artifacts.
    - Each requirement lives under `input/changes/<change-id>/`.
 2. Harness side
-   - `hc start` executes only the active change.
+   - `oph start` executes only the active change.
    - Before execution, openHarness prepares `.openharness/runtime-input/` as a flat compatibility view for existing agents.
 
 This keeps demand-side planning and implementation-side execution connected without generating OpenSpec proposal or design documents.
@@ -16,27 +16,27 @@ This keeps demand-side planning and implementation-side execution connected with
 ## Commands
 
 ```powershell
-hc init --backend codex
-hc gen "实现登录功能，状态保存在 localStorage"
-hc change list
-hc change use login
-hc start --backend codex
+oph init --backend codex
+oph gen "实现登录功能，状态保存在 localStorage"
+oph change list
+oph change use login
+oph start --backend codex
 ```
 
 Command behavior:
 
-- `hc prd "<requirement>"`
+- `oph prd "<requirement>"`
   - Creates a new change PRD at `input/changes/<change-id>/prd.md`
   - Creates `input/prd/tech-stack.md` when missing
-- `hc spec "<requirement>"`
+- `oph spec "<requirement>"`
   - Writes or updates `input/changes/<change-id>/techspec.md`
   - Defaults to the active change when one exists
-- `hc gen "<requirement>"`
+- `oph gen "<requirement>"`
   - Generates `prd.md`, `techspec.md`, `meta.yaml`, and optional `missing-info.md`
   - Sets the generated change as active
-- `hc change list`
+- `oph change list`
   - Lists all changes under `input/changes/`
-- `hc change use <change-id>`
+- `oph change use <change-id>`
   - Switches `.openharness/active_change`
 
 ## Directory Contract

@@ -422,6 +422,13 @@ generator_output_lang: auto
     print(f"Config file: {config_path}")
     print(f"Project data directory: {runtime.paths.openharness_dir}")
 
+    try:
+        from openharness.banner import print_init_completion_banner
+    except ImportError:
+        from banner import print_init_completion_banner
+
+    print_init_completion_banner(backend_name)
+
     return project_id
 
 

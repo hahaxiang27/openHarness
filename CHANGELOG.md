@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 - Optional Codex CLI as a third execution backend alongside OpenCode and Claude Code
-- Change-scoped SDD workflow (`input/changes/<id>/`) with `hc prd`, `hc spec`, `hc gen`, and `hc change`
-- Local read-only monitor (`hc monitor`) with configurable host and port
+- Change-scoped SDD workflow (`input/changes/<id>/`) with `oph prd`, `oph spec`, `oph gen`, and `oph change`
+- Local read-only monitor (`oph monitor`) with configurable host and port
 - Generator provider selection (`openspec`, `codex`, `template`) and output language hints
 
 ### Changed
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 - Multi-step Harness loop with Orchestrator, Coder, Tester, Fixer, and Reviewer agents
 - Project-scoped state under `.openharness/` (reports, feature list, missing-info tracking)
-- Git branch prompts during `hc init` for multi-repo workspaces
+- Git branch prompts during `oph init` for multi-repo workspaces
 
 ### Changed
 - Hardened subprocess and path handling for AI CLI backends
@@ -44,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Webhook hook points for loop milestones (optional `OPENHARNESS_WEBHOOK_URL`)
 
 ### Changed
-- Refactored installer and initialization flow for repeatable `hc init`
+- Refactored installer and initialization flow for repeatable `oph init`
 
 ### Fixed
 - Unicode console output on Windows for status and error lines
@@ -52,7 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [2.0.0] - 2026-02-07
 
 ### Added
-- First public **harnesscode**-era CLI (`hc`) with `init`, `start`, `status`, `restore`, `uninstall`
+- First public **harnesscode**-era CLI (`oph`) with `init`, `start`, `status`, `restore`, `uninstall`
 - PRD-driven feature list generation and orchestration stubs
 - Sample `input/` layout for `tech-stack.md` and techspec snippets
 

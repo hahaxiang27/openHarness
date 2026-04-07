@@ -14,7 +14,7 @@
 
 ## 2. 系统定位
 
-openHarness 是一个以 CLI 为入口、以本地文件为状态总线、以多 Agent 协作为执行模型的开发自动化框架。系统不依赖中心化服务，也不提供常驻 HTTP 进程；它通过 `hc init` 和 `hc start` 这两个主要命令完成项目初始化和持续开发循环。
+openHarness 是一个以 CLI 为入口、以本地文件为状态总线、以多 Agent 协作为执行模型的开发自动化框架。系统不依赖中心化服务，也不提供常驻 HTTP 进程；它通过 `oph init` 和 `oph start` 这两个主要命令完成项目初始化和持续开发循环。
 
 从架构角色上看，openHarness 后台主要承担五类职责：
 
@@ -30,7 +30,7 @@ openHarness 是一个以 CLI 为入口、以本地文件为状态总线、以多
 
 ```mermaid
 flowchart TD
-    A[CLI 命令 hc] --> B[installer.py<br/>环境检查与初始化]
+    A[CLI 命令 oph] --> B[installer.py<br/>环境检查与初始化]
     B --> C[backend.py<br/>选择 OpenCode / Claude Code]
     C --> D[infinite_dev.py<br/>主循环与调度]
     D --> E[Orchestrator]
@@ -184,7 +184,7 @@ openHarness 的业务执行不是写死在 Python 代码里，而是由“Python
 
 ### 7.1 初始化流程
 
-执行 `hc init` 后，系统会进行以下动作：
+执行 `oph init` 后，系统会进行以下动作：
 
 1. 检测或选择 AI 后端
 2. 扫描项目内 Git 仓库并引导选择分支
@@ -196,7 +196,7 @@ openHarness 的业务执行不是写死在 Python 代码里，而是由“Python
 
 ### 7.2 开发循环流程
 
-执行 `hc start` 后，系统进入持续循环：
+执行 `oph start` 后，系统进入持续循环：
 
 1. 加载当前后端与模型
 2. 初始化日志、指标、知识管理器
@@ -310,7 +310,7 @@ Claude 后端主要特点如下：
 - 最近 50 次执行记录
 - 最近 N 次成功率
 
-这为 `hc status` 提供了基础数据。
+这为 `oph status` 提供了基础数据。
 
 ### 10.3 外部通知
 

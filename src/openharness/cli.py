@@ -76,7 +76,7 @@ def main():
         print("openHarness v" + __version__)
         print("")
         print(
-            "Usage: hc [init|start|status|restore|uninstall|prd|spec|gen|change|monitor] "
+            "Usage: oph [init|start|status|restore|uninstall|prd|spec|gen|change|monitor] "
             f"[--backend {backend_options}] [--provider {provider_options}]"
         )
         print("")
@@ -98,8 +98,8 @@ def main():
         print("  --output-mode  Override generation scope: prd, spec, or gen")
         print("  --model     Optional generator model override")
         print("  --change    Target change id for spec or gen updates")
-        print("  --host      Host for `hc monitor` (default 127.0.0.1)")
-        print("  --port      Port for `hc monitor` (default 8765)")
+        print("  --host      Host for `oph monitor` (default 127.0.0.1)")
+        print("  --port      Port for `oph monitor` (default 8765)")
         print("  --open      Open the monitor page in the default browser")
         print("  --overwrite Allow generated files to replace existing files")
         print("  --version   Show version information")
@@ -116,7 +116,7 @@ def main():
         print("openHarness - AI-assisted human-in-the-loop development framework")
         print("")
         print(
-            "Usage: hc [init|start|status|restore|uninstall|prd|spec|gen|change|monitor] "
+            "Usage: oph [init|start|status|restore|uninstall|prd|spec|gen|change|monitor] "
             f"[--backend {backend_options}] [--provider {provider_options}]"
         )
         print("")
@@ -131,17 +131,17 @@ def main():
         print("  template  Use built-in templates without an external model")
         print("")
         print("Examples:")
-        print("  hc init                    # Auto-detect backend")
-        print("  hc init --backend claude   # Force Claude Code backend")
-        print("  hc init --backend codex    # Force Codex backend")
-        print("  hc start                   # Use backend from config")
-        print("  hc start --backend claude  # Override backend for this run")
-        print("  hc prd \"实现登录功能\"        # Create a new change PRD")
-        print("  hc spec \"补充登录技术方案\"    # Update the active change techspec")
-        print("  hc gen \"实现登录功能\"        # Generate the full change bundle")
-        print("  hc change list             # List available changes")
-        print("  hc change use login        # Activate a change")
-        print("  hc monitor --open          # Launch the local monitoring page")
+        print("  oph init                    # Auto-detect backend")
+        print("  oph init --backend claude   # Force Claude Code backend")
+        print("  oph init --backend codex    # Force Codex backend")
+        print("  oph start                   # Use backend from config")
+        print("  oph start --backend claude  # Override backend for this run")
+        print("  oph prd \"实现登录功能\"        # Create a new change PRD")
+        print("  oph spec \"补充登录技术方案\"    # Update the active change techspec")
+        print("  oph gen \"实现登录功能\"        # Generate the full change bundle")
+        print("  oph change list             # List available changes")
+        print("  oph change use login        # Activate a change")
+        print("  oph monitor --open          # Launch the local monitoring page")
         sys.exit(0)
 
     if command == "init":
@@ -202,7 +202,7 @@ def main():
         elif subcommand == "use":
             target_change = sys.argv[3].strip() if len(sys.argv) > 3 else ""
             if not target_change:
-                print("Usage: hc change use <change-id>")
+                print("Usage: oph change use <change-id>")
                 sys.exit(1)
             if not get_change_dir(os.getcwd(), target_change).exists():
                 print(f"[openHarness] Change not found: {target_change}")
@@ -214,7 +214,7 @@ def main():
             target_change = sys.argv[3].strip() if len(sys.argv) > 3 else ""
             show_change(os.getcwd(), target_change)
         else:
-            print("Usage: hc change [list|use <change-id>|show [change-id]]")
+            print("Usage: oph change [list|use <change-id>|show [change-id]]")
             sys.exit(1)
 
     elif command == "monitor":
@@ -237,10 +237,10 @@ def main():
     elif command in ("prd", "spec", "gen", "generate"):
         request_text = " ".join(sys.argv[2:]).strip()
         if command == "generate":
-            print("[openHarness] `hc generate` is deprecated. Use `hc gen` instead.")
+            print("[openHarness] `oph generate` is deprecated. Use `oph gen` instead.")
             command = "gen"
         if not request_text:
-            print(f"Usage: hc {command} \"<natural language requirement>\" [--provider {provider_options}]")
+            print(f"Usage: oph {command} \"<natural language requirement>\" [--provider {provider_options}]")
             sys.exit(1)
 
         from generator.service import run_generation_command
@@ -259,7 +259,7 @@ def main():
     else:
         print(f"Unknown command: {command}")
         print(
-            "Usage: hc [init|start|status|restore|uninstall|prd|spec|gen|change|monitor] "
+            "Usage: oph [init|start|status|restore|uninstall|prd|spec|gen|change|monitor] "
             f"[--backend {backend_options}] [--provider {provider_options}]"
         )
         sys.exit(1)

@@ -42,7 +42,7 @@ Before the commands, the key mental model is simple: openHarness is a **spec inp
 
 - **🧭 Spec entry points**: start from `tech-stack.md`, PRD, techspec, or change-scoped `input/changes/`.
 - **🛠 Execution loop**: `Orchestrator -> Coder / Tester / Fixer / Reviewer`, driven by project state.
-- **👀 Observable state**: runtime files are written under `.openharness/`, with `hc monitor` for a read-only view.
+- **👀 Observable state**: runtime files are written under `.openharness/`, with `oph monitor` for a read-only view.
 - **🔀 Switchable engines**: use the same workflow with OpenCode, Claude Code, or Codex CLI.
 
 ### Fast path
@@ -52,14 +52,14 @@ Before the commands, the key mental model is simple: openHarness is a **spec inp
    git clone https://github.com/hahaxiang27/openHarness.git
    cd openHarness
    python -m pip install -e .
-   hc --version
+   oph --version
    ```
 2. **In your application repo root**, add `input/prd/tech-stack.md` (exact filename) and optional `input/techspec/` snippets.
-3. **Initialize**: `hc init` (optional `--backend opencode|claude|codex`).
-4. **Run the loop**: `hc start`.
-5. **Watch progress**: run `hc monitor` in another terminal for a read-only dashboard (default `127.0.0.1:8765`).
+3. **Initialize**: `oph init` (optional `--backend opencode|claude|codex`).
+4. **Run the loop**: `oph start`.
+5. **Watch progress**: run `oph monitor` in another terminal for a read-only dashboard (default `127.0.0.1:8765`).
 
-For **change-scoped SDD** (`input/changes/<change-id>/`), read [docs/sdd-harness-generation-architecture.md](docs/sdd-harness-generation-architecture.md), then use `hc prd`, `hc spec`, `hc gen`, and `hc change` before `hc start`.
+For **change-scoped SDD** (`input/changes/<change-id>/`), read [docs/sdd-harness-generation-architecture.md](docs/sdd-harness-generation-architecture.md), then use `oph prd`, `oph spec`, `oph gen`, and `oph change` before `oph start`.
 
 ---
 
@@ -70,11 +70,11 @@ openHarness separates **what to build** (specs, change folders) from **how it is
 ```mermaid
 flowchart LR
   subgraph specTrack [SDD track]
-    A[Natural language] --> B[hc prd / spec / gen]
+    A[Natural language] --> B[oph prd / spec / gen]
     B --> C["input/changes & metadata"]
   end
   subgraph runTrack [Harness track]
-    D[hc start] --> E[Orchestrator reads state]
+    D[oph start] --> E[Orchestrator reads state]
     E --> F[Coder / Tester / Fixer / Reviewer]
     F --> G[".openharness reports"]
   end
@@ -166,12 +166,12 @@ codex login
 
 </details>
 
-**Install the openHarness package** (PyPI name `openharness`, CLI entry `hc`):
+**Install the openHarness package** (PyPI name `openharness`, CLI entry `oph`):
 
 ```powershell
 python -m pip install --upgrade pip
 python -m pip install -e .
-hc --version
+oph --version
 ```
 
 Use a venv if your OS enforces PEP 668: `pip install openharness` or `pip install -e .` inside the venv.
@@ -179,7 +179,7 @@ Use a venv if your OS enforces PEP 668: `pip install openharness` or `pip instal
 <details>
 <summary><strong>Troubleshooting</strong></summary>
 
-- **`hc` not found**: add Python `Scripts` (Windows) or `~/.local/bin` (Unix) to PATH.
+- **`oph` not found**: add Python `Scripts` (Windows) or `~/.local/bin` (Unix) to PATH.
 - **`externally-managed-environment`**: create a virtualenv, then install.
 
 </details>
@@ -190,22 +190,22 @@ Use a venv if your OS enforces PEP 668: `pip install openharness` or `pip instal
 
 | Command | Description |
 |---------|-------------|
-| `hc init` | Interactive init (backend, branches, learning dirs) |
-| `hc start` | Main Harness loop |
-| `hc status` | Project metrics and recent success rates |
-| `hc restore` | Restore config from backup |
-| `hc uninstall` | Remove agent installs and project `.openharness` (prompted) |
-| `hc prd` / `hc spec` / `hc gen` | SDD change generation (see SDD doc) |
-| `hc change` | List / switch active change |
-| `hc monitor` | Local read-only monitor (`--host` / `--port` / `--open`) |
-| `hc --version` | Version |
+| `oph init` | Interactive init (backend, branches, learning dirs) |
+| `oph start` | Main Harness loop |
+| `oph status` | Project metrics and recent success rates |
+| `oph restore` | Restore config from backup |
+| `oph uninstall` | Remove agent installs and project `.openharness` (prompted) |
+| `oph prd` / `oph spec` / `oph gen` | SDD change generation (see SDD doc) |
+| `oph change` | List / switch active change |
+| `oph monitor` | Local read-only monitor (`--host` / `--port` / `--open`) |
+| `oph --version` | Version |
 
 Examples:
 
 ```bash
-hc init --backend claude
-hc init --backend codex
-hc start --backend opencode
+oph init --backend claude
+oph init --backend codex
+oph start --backend opencode
 ```
 
 ---
@@ -240,7 +240,7 @@ openHarness/                 # repo root (PyPI: openharness)
 ## Uninstall
 
 ```bash
-hc uninstall
+oph uninstall
 pip uninstall openharness
 ```
 
