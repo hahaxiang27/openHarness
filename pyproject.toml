@@ -14,13 +14,9 @@ readme = "README.md"
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.0",
-    "pytest-cov>=4.0",
-    "pytest-mock>=3.0",
     "ruff>=0.1.0",
     "mypy>=1.0",
     "bandit>=1.7",
-    "pre-commit>=3.0",
     "twine>=4.0",
     "build>=1.0",
 ]
@@ -40,28 +36,10 @@ where = ["src"]
 [tool.setuptools.package-data]
 openharness = ["agents/*.md", "opencode.json"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = [
-    "--strict-markers",
-    "--tb=short",
-    "--cov=src",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-report=xml",
-]
-markers = [
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "integration: marks tests as integration tests",
-]
-
 [tool.ruff]
 line-length = 88
 target-version = "py38"
-src = ["src", "tests"]
+src = ["src"]
 
 [tool.ruff.lint]
 select = [
@@ -80,14 +58,11 @@ select = [
     "PTH",    # flake8-use-pathlib
 ]
 ignore = [
-    "S101",   # use of assert (needed for tests)
+    "S101",   # use of assert
     "S603",   # subprocess call with shell=True
     "S607",   # start process with partial path
     "T201",   # print statement (allowed in CLI)
 ]
-
-[tool.ruff.lint.per-file-ignores]
-"tests/*.py" = ["S101", "ARG", "T20"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -114,5 +89,5 @@ module = [
 ignore_missing_imports = true
 
 [tool.bandit]
-exclude_dirs = ["tests", "venv", ".venv"]
+exclude_dirs = ["venv", ".venv"]
 skips = ["B101"]  # skip assert warnings

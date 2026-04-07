@@ -220,7 +220,7 @@ hc start --backend opencode
 
 ---
 
-## Repository layout (for contributors)
+## Repository layout
 
 ```
 openHarness/                 # repo root (PyPI: openharness)
@@ -248,13 +248,12 @@ pip uninstall openharness
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Local dev:
+Issues and pull requests are welcome on [GitHub Issues](https://github.com/hahaxiang27/openHarness/issues). Install from source:
 
 ```bash
 git clone https://github.com/hahaxiang27/openHarness.git
 cd openHarness
-python -m pip install -e ".[dev]"
-pytest
+python -m pip install -e .
 ```
 
 ---

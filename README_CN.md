@@ -276,13 +276,12 @@ pip uninstall openharness
 
 ## 参与贡献
 
-详见 [CONTRIBUTING.md](CONTRIBUTING.md)。本地开发：
+欢迎在 [GitHub Issues](https://github.com/hahaxiang27/openHarness/issues) 反馈问题或提交 PR。从源码安装：
 
 ```bash
 git clone https://github.com/hahaxiang27/openHarness.git
 cd openHarness
-python -m pip install -e ".[dev]"
-pytest
+python -m pip install -e .
 ```
 
 ---
