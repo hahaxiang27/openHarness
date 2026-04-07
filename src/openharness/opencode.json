@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "orchestrator": {
+      "prompt": "{file:~/.config/opencode/agents/openharness-orchestrator.md}",
+      "mode": "primary"
+    },
+    "initializer": {
+      "prompt": "{file:~/.config/opencode/agents/openharness-initializer.md}",
+      "mode": "primary"
+    },
+    "coder": {
+      "prompt": "{file:~/.config/opencode/agents/openharness-coder.md}",
+      "mode": "primary"
+    },
+    "tester": {
+      "prompt": "{file:~/.config/opencode/agents/openharness-tester.md}",
+      "mode": "primary"
+    },
+    "fixer": {
+      "prompt": "{file:~/.config/opencode/agents/openharness-fixer.md}",
+      "mode": "primary"
+    }
+  }
+}

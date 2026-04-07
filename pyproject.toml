@@ -1,0 +1,118 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openharness"
+version = "4.1.0"
+description = "AI 驱动的人机协作开发框架 - 支持 OpenCode/Claude Code/Codex"
+authors = [{name = "油炸电灯泡"}]
+requires-python = ">=3.8"
+dependencies = ["pyyaml"]
+keywords = ["ai", "automation", "opencode", "claude-code", "codex", "openharness", "openHarness", "agent", "development", "harness", "human-in-the-loop"]
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-mock>=3.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+    "bandit>=1.7",
+    "pre-commit>=3.0",
+    "twine>=4.0",
+    "build>=1.0",
+]
+
+[project.scripts]
+hc = "openharness.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/hahaxiang27/openHarness"
+Repository = "https://github.com/hahaxiang27/openHarness"
+Documentation = "https://github.com/hahaxiang27/openHarness#readme"
+Issues = "https://github.com/hahaxiang27/openHarness/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+openharness = ["agents/*.md", "opencode.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--tb=short",
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "S",      # flake8-bandit
+    "T20",    # flake8-print
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "ARG",    # flake8-unused-arguments
+    "PTH",    # flake8-use-pathlib
+]
+ignore = [
+    "S101",   # use of assert (needed for tests)
+    "S603",   # subprocess call with shell=True
+    "S607",   # start process with partial path
+    "T201",   # print statement (allowed in CLI)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["S101", "ARG", "T20"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "yaml",
+    "subprocess",
+    "pathlib",
+    "tempfile",
+    "shutil",
+]
+ignore_missing_imports = true
+
+[tool.bandit]
+exclude_dirs = ["tests", "venv", ".venv"]
+skips = ["B101"]  # skip assert warnings
