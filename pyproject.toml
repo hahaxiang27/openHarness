@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "openharness"
 version = "4.1.0"
 description = "AI 驱动的人机协作开发框架 - 支持 OpenCode/Claude Code/Codex"
-authors = [{name = "油炸电灯泡"}]
+authors = [{name = "Helans(VibeCoder黄老斯)"}]
 requires-python = ">=3.8"
 dependencies = ["pyyaml"]
 keywords = ["ai", "automation", "opencode", "claude-code", "codex", "openharness", "openHarness", "agent", "development", "harness", "human-in-the-loop"]

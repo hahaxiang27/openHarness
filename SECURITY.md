@@ -6,7 +6,7 @@
 
 请通过以下方式私下报告：
 
-1. **发送邮件**到yzddp@example.com
+1. **发送邮件**到helans@example.com
 2. **主题**：[安全漏洞报告] openHarness
 3. **包含**：
    - 漏洞描述
@@ -131,8 +131,8 @@ backend: local
 
 有关安全问题，请联系：
 
-- **维护者**：yzddp
-- **邮箱**：yzddp@example.com
+- **维护者**：Helans(VibeCoder黄老斯)
+- **邮箱**：helans@example.com
 - **PGP密钥**：[如果有的话，提供PGP密钥链接]
 
 ---
