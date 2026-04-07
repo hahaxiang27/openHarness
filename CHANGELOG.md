@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Fixed
 - None
 
-## [4.1.0] - 2026-03-28
+## [4.1.0] - 2026-04-07
 
 ### Added
 - Git branch selection support
