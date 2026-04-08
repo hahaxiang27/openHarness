@@ -89,6 +89,14 @@ class Backend:
         """Build the command list used to run an agent."""
         raise NotImplementedError
 
+    def uses_stdin_prompt(self):
+        """Return whether the backend expects prompt content via stdin."""
+        return False
+
+    def get_stdin_prompt(self, agent, prompt):
+        """Return prompt text that should be sent to stdin."""
+        return None
+
     def get_config_dir(self):
         """Return the backend config directory path."""
         raise NotImplementedError
@@ -703,8 +711,10 @@ class CodexBackend(Backend):
         if os.environ.get("CODEX_PATH"):
             return os.environ["CODEX_PATH"]
 
-        # 2. Prefer executable/cmd forms on PATH to avoid PowerShell .ps1 policy issues.
-        for candidate in ("codex.exe", "codex.cmd", "codex"):
+        # 2. Prefer the npm-installed .cmd on Windows; some WindowsApps .exe shims
+        # exist on PATH but cannot be launched reliably through CreateProcess.
+        path_candidates = ("codex.cmd", "codex.exe", "codex") if sys.platform == "win32" else ("codex",)
+        for candidate in path_candidates:
             found = shutil.which(candidate)
             if found:
                 return found
@@ -758,18 +768,20 @@ class CodexBackend(Backend):
 
     def build_run_cmd(self, agent, prompt, model=None):
         cmd_path = self.get_command_path()
-        full_prompt = self._compose_agent_prompt(agent, prompt)
 
-        if sys.platform == "win32":
-            cmd = ["cmd", "/c", cmd_path, "exec", "--full-auto", "--skip-git-repo-check", "--color", "never"]
-        else:
-            cmd = [cmd_path, "exec", "--full-auto", "--skip-git-repo-check", "--color", "never"]
+        cmd = [cmd_path, "exec", "--full-auto", "--skip-git-repo-check", "--color", "never"]
 
         if model:
             cmd.extend(["--model", model])
 
-        cmd.append(full_prompt)
+        cmd.append("-")
         return cmd
+
+    def uses_stdin_prompt(self):
+        return True
+
+    def get_stdin_prompt(self, agent, prompt):
+        return self._compose_agent_prompt(agent, prompt)
 
     def get_config_dir(self):
         return Path.home() / ".codex"
@@ -825,7 +837,8 @@ class CodexBackend(Backend):
             if os.path.isfile(p):
                 return True
 
-        for candidate in ("codex.exe", "codex.cmd", "codex"):
+        path_candidates = ("codex.cmd", "codex.exe", "codex") if sys.platform == "win32" else ("codex",)
+        for candidate in path_candidates:
             if shutil.which(candidate):
                 return True
 

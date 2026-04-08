@@ -192,6 +192,9 @@ def parse_claude_stream_json(line):
 def run_agent(runtime, agent, prompt, iteration, log):
     """Run an agent through the configured backend."""
     cmd = runtime.current_backend.build_run_cmd(agent, prompt, runtime.selected_model)
+    stdin_prompt = None
+    if runtime.current_backend.uses_stdin_prompt():
+        stdin_prompt = runtime.current_backend.get_stdin_prompt(agent, prompt)
     is_claude_stream = runtime.current_backend.name == "claude"
 
     start_time = time.time()
@@ -228,10 +231,25 @@ def run_agent(runtime, agent, prompt, iteration, log):
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
+            stdin=subprocess.PIPE if stdin_prompt is not None else None,
             cwd=runtime.project_dir,
             env=get_env(),
             bufsize=0,
         )
+
+        if stdin_prompt is not None and process.stdin:
+            try:
+                process.stdin.write(stdin_prompt.encode("utf-8"))
+                process.stdin.flush()
+            except OSError:
+                # Codex may close stdin early after consuming the prompt; keep
+                # reading stdout instead of failing the whole agent session.
+                pass
+            finally:
+                try:
+                    process.stdin.close()
+                except OSError:
+                    pass
 
         watcher = threading.Thread(target=timeout_watcher, daemon=True)
         watcher.start()

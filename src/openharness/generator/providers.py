@@ -329,18 +329,16 @@ class CodexProvider(GeneratorProvider):
         )
 
         cmd_path = self.backend.get_command_path()
-        if sys.platform == "win32":
-            cmd = ["cmd", "/c", cmd_path, "exec", "--full-auto", "--skip-git-repo-check", "--color", "never"]
-        else:
-            cmd = [cmd_path, "exec", "--full-auto", "--skip-git-repo-check", "--color", "never"]
+        cmd = [cmd_path, "exec", "--full-auto", "--skip-git-repo-check", "--color", "never"]
         if request.model:
             cmd.extend(["--model", request.model])
-        cmd.append(prompt)
+        cmd.append("-")
 
         try:
             result = subprocess.run(
                 cmd,
                 cwd=str(context.project_dir),
+                input=prompt,
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
